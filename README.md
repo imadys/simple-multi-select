@@ -4,6 +4,9 @@ A customizable multi-select dropdown built using Headless UI-style components. I
 
 ---
 
+<img title="Simple mutli select" alt="Simple mutli select" src="./public/cover.png">
+
+
 ## Installiaton
 
 `npx shadcn@latest add badge select form`
