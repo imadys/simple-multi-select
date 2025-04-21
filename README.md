@@ -6,6 +6,7 @@ A customizable multi-select dropdown built using Headless UI-style components. I
 
 <img title="Simple mutli select" alt="Simple mutli select" src="./public/cover.png">
 
+[Preview](https://simple-multi-select.vercel.app/)
 
 ## Installiaton
 
