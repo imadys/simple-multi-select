@@ -1,15 +1,3 @@
-# Simple multi select for shadcn
-
-A customizable multi-select dropdown built using Headless UI-style components. Ideal for selecting multiple options with visual feedback using badges.
-
----
-
-## Installiaton
-
-`npx shadcn@latest add badge select form`
-
-Add this code to ui/components ( Remove the FormControl if you're not planning for using it with Form )
-```tsx
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -56,23 +44,26 @@ export default function SimpleMultiSelect({
     return (
         <Select>
             <FormControl>
-                <SelectTrigger className="w-full flex flex-wrap justify-start gap-2 [&>.lucide-chevron-down]:ms-auto">
+                <SelectTrigger className="w-full !h-fit flex flex-wrap justify-start gap-2 [&>.lucide-chevron-down]:ms-auto">
                     {selectedOptions.length > 0 ? (
                         <>
                             {options
                                 .filter((option) => selectedOptions.includes(option.value))
                                 .slice(0, 5)
-                                .map((option) => (
-                                    <Badge key={option.value}>
-                                        {option.label}
-                                        <X
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                toggleOption(option.value);
-                                            }}
-                                            className="w-3 h-3 ml-1 cursor-pointer"
-                                        />
-                                    </Badge>
+                                .map((option, index) => (
+                                    <div key={index} className="flex items-center">
+                                        <Badge variant={"outline"} className="!pointer-events-auto cursor-pointer" onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleOption(option.value);
+                                        }} key={option.value}>
+                                            {option.label}
+                                            <X
+
+                                                className="w-2 h-2"
+                                            />
+                                        </Badge>
+
+                                    </div>
                                 ))}
                             {selectedOptions.length > 5 && (
                                 <Badge variant="secondary">
@@ -109,43 +100,4 @@ export default function SimpleMultiSelect({
             </SelectContent>
         </Select>
     );
-}
-
-
-```
-
-## 📦 Import
-
-| Prop           | Type                                   | Required | Description                                                  |
-|----------------|----------------------------------------|----------|--------------------------------------------------------------|
-| `options`      | `{ label: string, value: string }[]`   | ✅       | Array of selectable items to be rendered in the dropdown     |
-| `onChange`     | `(selected: string[]) => void`         | ❌       | Callback fired when the selected items change                |
-| `defaultValues`| `string[]`                             | ❌       | List of values to be selected initially                      |
-
-----
-
-## Usage
-```tsx
-import SimpleMultiSelect from "@/components/ui/simple-multi-select";
-
-const options = [
-  { label: "JavaScript", value: "js" },
-  { label: "TypeScript", value: "ts" },
-  { label: "Python", value: "python" },
-  { label: "Go", value: "go" },
-  { label: "Rust", value: "rust" },
-];
-
-function MyComponent() {
-  const handleSelectionChange = (selectedValues: string[]) => {
-    console.log("Selected values:", selectedValues);
-  };
-
-  return (
-    <SimpleMultiSelect
-      options={options}
-      defaultValues={["js", "ts"]}
-      onChange={handleSelectionChange}
-    />
-  );
 }
